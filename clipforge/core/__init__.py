@@ -1,0 +1,1 @@
+"""ClipForge core pipeline modules."""
