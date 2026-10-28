@@ -24,6 +24,45 @@ class SubtitleGenerator:
         self.outline_color = outline_color
         self.outline_width = outline_width
 
+    @classmethod
+    def from_preset(cls, preset: str = "classic") -> "SubtitleGenerator":
+        """Instantiate a subtitle generator with predefined aesthetic styles."""
+        presets = {
+            "classic": cls(
+                font_name="Arial",
+                font_size=70,
+                primary_color="&H00FFFFFF",
+                highlight_color="&H0000FFFF",  # Bright Yellow
+                outline_color="&H00000000",
+                outline_width=4,
+            ),
+            "hormozi": cls(
+                font_name="Impact",
+                font_size=82,
+                primary_color="&H0000FFFF",    # Yellow base
+                highlight_color="&H0000FF00",  # Neon Green active
+                outline_color="&H00000000",
+                outline_width=6,
+            ),
+            "neon": cls(
+                font_name="Arial Black",
+                font_size=74,
+                primary_color="&H00FFFF00",    # Cyan base
+                highlight_color="&H00FF00FF",  # Magenta active
+                outline_color="&H00000000",
+                outline_width=5,
+            ),
+            "minimal": cls(
+                font_name="Helvetica",
+                font_size=64,
+                primary_color="&H00FFFFFF",
+                highlight_color="&H00CCCCCC",
+                outline_color="&H00000000",
+                outline_width=2,
+            ),
+        }
+        return presets.get(preset.lower(), presets["classic"])
+
     def generate_ass(
         self,
         segments: List[Segment],

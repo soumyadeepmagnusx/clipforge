@@ -22,6 +22,18 @@ class TestClipForge(unittest.TestCase):
         self.assertEqual(SubtitleGenerator._format_timestamp(65.25), "0:01:05.25")
         self.assertEqual(SubtitleGenerator._format_timestamp(3600.0), "1:00:00.00")
 
+    def test_subtitle_presets(self):
+        """Verify aesthetic style presets configuration."""
+        hormozi = SubtitleGenerator.from_preset("hormozi")
+        self.assertEqual(hormozi.font_name, "Impact")
+        self.assertEqual(hormozi.font_size, 82)
+
+        neon = SubtitleGenerator.from_preset("neon")
+        self.assertEqual(neon.font_name, "Arial Black")
+
+        classic = SubtitleGenerator.from_preset("unknown_fallback")
+        self.assertEqual(classic.font_name, "Arial")
+
     def test_subtitle_generation(self):
         """Verify ASS file generation with kinetic tags."""
         generator = SubtitleGenerator()
