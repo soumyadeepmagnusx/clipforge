@@ -14,6 +14,12 @@ google-genai>=0.1.0
 # Subtitles & Formatting
 pysubs2>=1.6.0
 
+# Web & Studio UI
+streamlit>=1.30.0
+fastapi>=0.100.0
+uvicorn>=0.23.0
+python-multipart>=0.0.6
+
 # Testing & Dev
 pytest>=8.0.0
 pytest-asyncio>=0.23.0
