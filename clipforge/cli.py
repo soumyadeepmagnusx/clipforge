@@ -25,6 +25,13 @@ def build_parser() -> argparse.ArgumentParser:
     proc.add_argument("--max-duration", type=float, default=60.0, help="Maximum clip duration (seconds)")
     proc.add_argument("--top-k", type=int, default=3, help="Number of viral clips to extract")
     proc.add_argument("--no-subtitles", action="store_true", help="Disable burning kinetic subtitles")
+    proc.add_argument(
+        "--preset",
+        type=str,
+        default="classic",
+        choices=["classic", "hormozi", "neon", "minimal"],
+        help="Subtitle visual styling preset",
+    )
 
     # Subcommand: probe
     subparsers.add_parser("probe", help="Inspect video properties and dimensions").add_argument(
@@ -89,9 +96,9 @@ def main():
             print(f"   Clip #{idx}: {cand.start_time:.1f}s - {cand.end_time:.1f}s ({cand.duration:.1f}s) | Score: {cand.viral_score:.1f}/10")
 
         cropper = SmartCropper()
-        sub_gen = SubtitleGenerator()
+        sub_gen = SubtitleGenerator.from_preset(args.preset)
 
-        print(f"✂️ [5/5] Framing vertical 9:16 clips & burning captions...")
+        print(f"✂️ [5/5] Framing vertical 9:16 clips & burning captions (preset: '{args.preset}')...")
         for idx, cand in enumerate(candidates, 1):
             clip_name = f"{video_path.stem}_clip_{idx}"
             out_clip = output_dir / f"{clip_name}.mp4"
